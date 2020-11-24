@@ -50,21 +50,12 @@ jobs:
         run: |
           composer install --no-progress --no-scripts --no-suggest --prefer-dist --optimize-autoloader
 
-      - name: Verify Mysqk connection
-        env:
-          PORT: ${{ job.services.mariadb.ports[3306] }}
-        run: |
-          sudo /etc/init.d/mysql start
-          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
-            sleep 1
-          done
-
       - name: Prepare Database
         run: |
-          php bin/console cache:clear --env=test
-          php bin/console doctrine:database:create --env=test
-          php bin/console doctrine:schema:update -f --env=test
-          php bin/console doctrine:fixtures:load -n --env=test
+          php bin/console cache:clear
+          php bin/console doctrine:database:create
+          php bin/console doctrine:schema:update -f
+          php bin/console doctrine:fixtures:load -n
 
       - name: Run Tests
         run: |
