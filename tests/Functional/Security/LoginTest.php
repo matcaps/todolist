@@ -137,8 +137,8 @@ class LoginTest extends WebTestCase
      */
     public function succesfullyLoginProvider()
     {
-        yield ["user@todo.list", "password", 'http://localhost/profile'];
-        yield ["admin@todo.list", "password", 'http://localhost/admin'];
+        yield ["user@todo.list", "$1234Abcd", 'http://localhost/profile'];
+        yield ["admin@todo.list", "$1234Abcd", 'http://localhost/admin'];
     }
 
     public function errorLoginProvider()

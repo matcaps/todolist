@@ -4,13 +4,13 @@ namespace App\Entity;
 
 use App\Exception\AccountCreationException;
 use App\Repository\UserRepository;
-use Cassandra\UuidInterface;
 use DateInterval;
 use DateTimeImmutable;
 use DateTimeInterface;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Uid\UuidV4;
+use Symfony\Component\Validator\Constraints as Assert;
 
 use function dd;
 use function in_array;
@@ -21,8 +21,6 @@ use function in_array;
  */
 class User implements UserInterface
 {
-
-
     public const ACTIVATION_LIMIT_IN_DAYS = 2;
     public const MINIMUM_AGE_TO_CREATE_ACCOUNT = 18;
 
@@ -35,6 +33,12 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\Email(
+     *     message="L'adresse email '{{ value }}' ne semble pas valide."
+     * )
+     * @Assert\NotBlank(
+     *     message="L'adresse email '{{ value }}' ne peut pas être vide."
+     * )
      */
     private string $email;
 
@@ -48,6 +52,13 @@ class User implements UserInterface
      */
     private ?string $password;
 
+    /**
+     * @Assert\NotBlank
+     * @Assert\Length(min=8)
+     * @Assert\Regex(
+     *     pattern="#.*^(?=.{8,20})(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9]).*$#"
+     * )
+     */
     private ?string $plainPassword;
 
     /**

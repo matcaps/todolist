@@ -149,6 +149,6 @@ class RegisterTest extends WebTestCase
 
     public function registerUserEmailProvider(): ?\Generator
     {
-        yield ["newunactivateduser@todo.list", "password", new DateTimeImmutable("1970-01-01 00:00:00")];
+        yield ["newunactivateduser@todo.list", "$1234Abcd", new DateTimeImmutable("1970-01-01 00:00:00")];
     }
 }

@@ -24,7 +24,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail("user@todo.list");
         $user->setBirthDate(new DateTimeImmutable("1970-01-01 00:00:00"));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, '$1234Abcd'));
         $user->validateAccount();
         $user->setRoles([]);
 
@@ -33,7 +33,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail("admin@todo.list");
         $user->setBirthDate(new DateTimeImmutable("1970-01-01 00:00:00"));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, '$1234Abcd'));
         $user->setRoles(['ROLE_ADMIN']);
         $user->validateAccount();
         $manager->persist($user);
@@ -41,7 +41,7 @@ class UserFixtures extends Fixture
         $user = new User();
         $user->setEmail("inactive@todo.list");
         $user->setBirthDate(new DateTimeImmutable("1970-01-01 00:00:00"));
-        $user->setPassword($this->passwordEncoder->encodePassword($user, 'password'));
+        $user->setPassword($this->passwordEncoder->encodePassword($user, '$1234Abcd'));
         $user->setRoles([]);
         $manager->persist($user);
 
