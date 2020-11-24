@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Register !{% endblock %}
+
+{% block body %}
+    {{ form_start(registrationForm, {'attr': {'novalidate': 'novalidate'}}) }}
+
+    {{ form_row(registrationForm.email) }}
+    {{ form_row(registrationForm.plainPassword) }}
+    {{ form_row(registrationForm.birthDate) }}
+    {{ form_row(registrationForm.accepted) }}
+
+    <button  type="submit">
+        Register
+    </button>
+
+    <div class="register">
+        <a href="{{ path('app_login') }}">I have an account</a>
+    </div>
+
+
+    {{ form_end(registrationForm) }}
+
+
+
+
+{% endblock %}
