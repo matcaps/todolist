@@ -15,15 +15,14 @@ jobs:
         node-version: [ '14.7' ]
 
     services:
-      mariadb:
+      mysql:
         image: mysql:5.7
-        ports:
-          - 3306
         env:
-          MYSQL_USER: user
-          MYSQL_PASSWORD: password
-          MYSQL_DATABASE: test
-          MYSQL_ROOT_PASSWORD: password
+          MYSQL_ROOT_PASSWORD: root
+        ports:
+          - 3306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     steps:
 
       - name: Checkout code
@@ -51,21 +50,12 @@ jobs:
         run: |
           composer install --no-progress --no-scripts --no-suggest --prefer-dist --optimize-autoloader
 
-      - name: Verify Mysqk connection
-        env:
-          PORT: ${{ job.services.mariadb.ports[3306] }}
-        run: |
-          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
-            sleep 1
-          done
-
       - name: Prepare Database
         run: |
-          php bin/console cache:clear --env=test
-          php bin/console doctrine:database:drop --if-exists -f --env=test
-          php bin/console doctrine:database:create --env=test
-          php bin/console doctrine:schema:update -f --env=test
-          php bin/console doctrine:fixtures:load -n --env=test
+          php bin/console cache:clear
+          php bin/console doctrine:database:create
+          php bin/console doctrine:schema:update -f
+          php bin/console doctrine:fixtures:load -n
 
       - name: Run Tests
         run: |
