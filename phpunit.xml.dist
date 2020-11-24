@@ -7,25 +7,26 @@
          colors="true"
          bootstrap="tests/bootstrap.php"
 >
-<!--    <coverage processUncoveredFiles="true">-->
-<!--        <include>-->
-<!--            <directory suffix=".php">src</directory>-->
-<!--        </include>-->
-<!--        <exclude>-->
-<!--            <directory>src/DataFixtures</directory>-->
-<!--            <file>src/Kernel.php</file>-->
-<!--        </exclude>-->
-<!--        <report>-->
-<!--            <html outputDirectory="var/coverage"/>-->
-<!--        </report>-->
-<!--    </coverage>-->
+    <coverage processUncoveredFiles="true">
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+        <exclude>
+            <directory>src/DataFixtures</directory>
+            <file>src/Kernel.php</file>
+        </exclude>
+        <report>
+            <html outputDirectory="var/coverage"/>
+        </report>
+    </coverage>
 
     <php>
         <ini name="error_reporting" value="-1" />
         <server name="APP_ENV" value="test" force="true" />
         <server name="SHELL_VERBOSITY" value="-1" />
         <server name="SYMFONY_PHPUNIT_REMOVE" value="" />
-        <server name="SYMFONY_PHPUNIT_VERSION" value="7.5" />
+        <server name="SYMFONY_PHPUNIT_VERSION" value="9.3" />
+        <server name="SYMFONY_DEPRECATIONS_HELPER" value="disabled" />
     </php>
 
     <testsuites>
@@ -34,11 +35,7 @@
         </testsuite>
     </testsuites>
 
-    <filter>
-        <whitelist processUncoveredFilesFromWhitelist="true">
-            <directory suffix=".php">src</directory>
-        </whitelist>
-    </filter>
+
 
     <listeners>
         <listener class="Symfony\Bridge\PhpUnit\SymfonyTestsListener" />
