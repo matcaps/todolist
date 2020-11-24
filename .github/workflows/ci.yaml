@@ -52,12 +52,12 @@ jobs:
           composer install --no-progress --no-scripts --no-suggest --prefer-dist --optimize-autoloader
 
       - name: Verify Mysqk connection
-          env:
-            PORT: ${{ job.services.mariadb.ports[3306] }}
-          run: |
-            while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
-              sleep 1
-            done
+        env:
+          PORT: ${{ job.services.mariadb.ports[3306] }}
+        run: |
+          while ! mysqladmin ping -h"127.0.0.1" -P"$PORT" --silent; do
+            sleep 1
+          done
 
       - name: Prepare Database
         run: |
