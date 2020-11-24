@@ -22,7 +22,7 @@ jobs:
         env:
           MYSQL_USER: user
           MYSQL_PASSWORD: password
-          MYSQL_DATABASE: test
+          MYSQL_DATABASE: todolist_test_dist
           MYSQL_ROOT_PASSWORD: password
     steps:
 
