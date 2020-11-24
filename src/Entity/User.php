@@ -84,7 +84,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="datetime_immutable", nullable=true)
      */
-    private ?DateTimeImmutable $activationRequestedAt;
+    private ?DateTimeImmutable $activationRequestedAt = null;
 
     /**
      * @ORM\Column(type="datetime_immutable")
@@ -97,6 +97,9 @@ class User implements UserInterface
         $this->createdAt = $now;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getId(): ?int
     {
         return $this->id;
@@ -136,6 +139,9 @@ class User implements UserInterface
         return array_unique($roles);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -195,13 +201,6 @@ class User implements UserInterface
         return $this->createdAt;
     }
 
-    public function setCreatedAt(?\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function hasValidAccount(): ?bool
     {
         return $this->isAccountValid === true;
@@ -215,6 +214,9 @@ class User implements UserInterface
         return $this;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function getAccountValidatedAt(): ?\DateTimeImmutable
     {
         return $this->accountValidatedAt;
@@ -225,6 +227,9 @@ class User implements UserInterface
         return $this->activationToken;
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     public function setActivationToken(?string $activationToken): self
     {
         $this->activationToken = $activationToken;

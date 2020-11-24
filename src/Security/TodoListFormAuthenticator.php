@@ -99,10 +99,6 @@ class TodoListFormAuthenticator extends AbstractFormLoginAuthenticator implement
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, string $providerKey)
     {
-        if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
-            return new RedirectResponse($targetPath);
-        }
-
         /** @var UserInterface $user */
         $user = $token->getUser();
         if (in_array("ROLE_ADMIN", $user->getRoles())) {

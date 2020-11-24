@@ -6,9 +6,11 @@ use App\Entity\User;
 use App\Exception\AccountCreationException;
 use DateInterval;
 use DateTimeImmutable;
+use DateTimeInterface;
 use PHPUnit\Framework\TestCase;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Security\Core\Exception\AccountStatusException;
+use Symfony\Component\Uid\UuidV4;
 use Symfony\Component\Validator\ConstraintViolation;
 use Symfony\Component\Validator\Exception\InvalidArgumentException;
 use Throwable;
@@ -71,6 +73,18 @@ class UserTest extends WebTestCase
 
         //assert that there is minimum & violation
         self::assertGreaterThanOrEqual(1, count($violationList));
+    }
+
+    public function testActivationLimit()
+    {
+
+        $user = new User();
+
+        self::assertNull($user->getActivationLimitAt());
+
+        $user->requestAccountActivation(new UuidV4());
+
+        self::assertInstanceOf(DateTimeInterface::class, $user->getActivationLimitAt());
     }
 
 
